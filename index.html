@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Love Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #ffe6e6, #ffcccc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            width: 350px;
+            position: relative;
+        }
+
+        .login-card h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 36px;
+            color: #ff4d4d;
+            margin-bottom: 20px;
+        }
+
+        .login-card .heart {
+            font-size: 30px;
+            color: #ff4d4d;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .login-card input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ffcccc;
+            border-radius: 8px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .login-card input:focus {
+            border-color: #ff4d4d;
+        }
+
+        .login-card button {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        .login-card button:hover {
+            background-color: #e60000;
+        }
+
+        .footer-text {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .footer-text a {
+            color: #ff4d4d;
+            text-decoration: none;
+        }
+
+        .footer-text a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <div class="heart">❤️</div>
+        <h2>Welcome, My Love</h2>
+        <form>
+            <label for="">Hint: DD/MM/YYYY of the day we first went out</label>
+            <input type="text" name="need" id="need" placeholder="Your Sweet Name" required>
+            <button type="button" id="submit_1">Enter Our World 💌</button>
+        </form>
+        
+    </div>
+<script src="assets/js/index.js"></script>
+</body>
+</html>
