@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>💖Yuyu</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Google Fonts for Romance -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #ffd6d9, #ffeef1);
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      color: #422c2e;
+      overflow-x: hidden;
+    }
+
+    /* Center letter container */
+    .letter-image {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 220px;
+      height: 220px;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      text-align: center;
+      user-select: none;
+      filter: drop-shadow(0 8px 10px rgba(255, 105, 135, 0.3));
+      transition: transform 0.3s ease;
+    }
+    .letter-image:hover {
+      transform: translate(-50%, -50%) scale(1.07);
+    }
+
+    /* Pulse animation for the tap message */
+    .click-message {
+      font-family: 'Great Vibes', cursive;
+      color: #d4375b;
+      font-size: 35px;
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+      animation: pulse 2.5s infinite ease-in-out;
+      text-shadow: 0 0 10px #f6a1b1;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    /* Animated letter styles */
+    .animated-mail {
+      position: absolute;
+      height: 170px;
+      width: 220px;
+      transition: 0.4s;
+      filter: drop-shadow(0 4px 10px rgba(255, 105, 135, 0.4));
+      border-radius: 18px;
+      background: linear-gradient(135deg, #f8b7bd, #e65c6a);
+      box-shadow: 0 4px 20px rgba(230, 92, 106, 0.4);
+    }
+    .animated-mail .body {
+      position: absolute;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 0 110px 220px;
+      border-color: transparent transparent #ff7993 transparent;
+      z-index: 2;
+      border-radius: 0 0 18px 18px;
+    }
+    .animated-mail .top-fold {
+      position: absolute;
+      top: 60px;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 60px 110px 0 110px;
+      transform-origin: 50% 0%;
+      transition: transform 0.4s 0.4s, z-index 0.2s 0.4s;
+      border-color: #cf4a43 transparent transparent transparent;
+      z-index: 2;
+      border-radius: 0 0 18px 18px;
+    }
+    .animated-mail .back-fold {
+      position: absolute;
+      bottom: 0;
+      width: 220px;
+      height: 110px;
+      background: #cf4a43;
+      z-index: 0;
+      border-radius: 0 0 18px 18px;
+    }
+    .animated-mail .left-fold {
+      position: absolute;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 55px 0 55px 110px;
+      border-color: transparent transparent transparent #e15349;
+      z-index: 2;
+    }
+    .animated-mail .letter {
+      left: 25px;
+      bottom: 0px;
+      position: absolute;
+      width: 170px;
+      height: 70px;
+      background: white;
+      z-index: 1;
+      overflow: hidden;
+      transition: 0.4s 0.2s;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(255, 105, 135, 0.3);
+    }
+    .animated-mail .letter-border {
+      height: 14px;
+      width: 100%;
+      background: repeating-linear-gradient(
+        -45deg,
+        #cb5a5e,
+        #cb5a5e 10px,
+        transparent 10px,
+        transparent 22px
+      );
+      border-radius: 12px 12px 0 0;
+    }
+    .animated-mail .letter-title,
+    .animated-mail .letter-context {
+      margin-top: 14px;
+      margin-left: 8px;
+      height: 14px;
+      background: #cb5a5e;
+      border-radius: 6px;
+    }
+    .animated-mail .letter-title { width: 50%; }
+    .animated-mail .letter-context { width: 25%; }
+    .animated-mail .letter-stamp {
+      margin-top: 35px;
+      margin-left: 130px;
+      border-radius: 100%;
+      height: 34px;
+      width: 34px;
+      background: #cb5a5e;
+      opacity: 0.35;
+      box-shadow: 0 0 10px #ff7493;
+    }
+
+    .shadow {
+      position: absolute;
+      top: 220px;
+      left: 50%;
+      width: 420px;
+      height: 36px;
+      transform: translateX(-50%);
+      border-radius: 100%;
+      background: radial-gradient(
+        rgba(255, 105, 135, 0.5),
+        rgba(255, 105, 135, 0),
+        rgba(255, 105, 135, 0)
+      );
+      transition: 0.4s;
+    }
+
+    .letter-image:hover .animated-mail {
+      transform: translateY(60px);
+    }
+    .letter-image:hover .top-fold {
+      transform: rotateX(180deg);
+      z-index: 0;
+    }
+    .letter-image:hover .letter {
+      height: 190px;
+    }
+    .letter-image:hover .shadow {
+      width: 280px;
+    }
+
+    /* Modal styles */
+    .letter-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(255, 182, 193, 0.95);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+      padding: 15px;
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .letter-modal.active {
+      display: flex;
+    }
+
+    .letter-content {
+      background: #fff0f5;
+      padding: 30px 35px;
+      max-width: 650px;
+      width: 90vw;
+      max-height: 70vh;
+      border-radius: 24px;
+      box-shadow: 0 8px 40px rgba(255, 105, 135, 0.45);
+      color: #6a3d46;
+      font-size: 1.15rem;
+      line-height: 1.65;
+      overflow-y: auto;
+      position: relative;
+      font-family: 'Georgia', serif;
+      user-select: text;
+      scrollbar-width: thin;
+      scrollbar-color: #f7a1b1 #ffe5eb;
+    }
+    .letter-content::-webkit-scrollbar {
+      width: 8px;
+    }
+    .letter-content::-webkit-scrollbar-track {
+      background: #ffe5eb;
+      border-radius: 12px;
+    }
+    .letter-content::-webkit-scrollbar-thumb {
+      background-color: #f7a1b1;
+      border-radius: 12px;
+      border: 2px solid #ffe5eb;
+    }
+
+    .letter-content h2 {
+      margin-top: 0;
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.8rem;
+      text-align: center;
+      color: #d93b57;
+      text-shadow: 0 2px 6px #ff7493;
+      user-select: none;
+    }
+    .letter-content h4 {
+      text-align: center;
+      color: #d93b57;
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+      user-select: none;
+      text-shadow: 0 1px 3px #ffa1b7;
+    }
+    .letter-content p {
+      margin-bottom: 1.25rem;
+    }
+    .letter-content img {
+      display: block;
+      margin: 0 auto 1.8rem auto;
+      max-width: 280px;
+      border-radius: 18px;
+      box-shadow: 0 0 20px rgba(255, 105, 135, 0.4);
+      user-select: none;
+    }
+
+    /* Close button */
+    .close-btn {
+      position: absolute;
+      top: 14px;
+      right: 22px;
+      font-size: 32px;
+      color: #d93b57;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      user-select: none;
+      font-weight: 600;
+    }
+    .close-btn:hover {
+      color: #ff4d6e;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .letter-content {
+        max-width: 90vw;
+        max-height: 75vh;
+        font-size: 1.05rem;
+        padding: 25px 30px;
+      }
+      .letter-image {
+        width: 170px;
+        height: 170px;
+      }
+      .animated-mail {
+        height: 140px;
+        width: 170px;
+      }
+      .animated-mail .body {
+        border-width: 0 0 90px 170px;
+      }
+      .animated-mail .top-fold {
+        border-width: 45px 85px 0 85px;
+        top: 45px;
+      }
+      .animated-mail .back-fold {
+        width: 170px;
+        height: 90px;
+      }
+      .animated-mail .left-fold {
+        border-width: 45px 0 45px 85px;
+      }
+      .animated-mail .letter {
+        width: 130px;
+        height: 55px;
+        left: 18px;
+      }
+      .animated-mail .letter-border {
+        height: 10px;
+      }
+      .animated-mail .letter-title,
+      .animated-mail .letter-context {
+        height: 10px;
+        margin-top: 10px;
+        margin-left: 6px;
+      }
+      .animated-mail .letter-stamp {
+        margin-top: 27px;
+        margin-left: 100px;
+        height: 26px;
+        width: 26px;
+      }
+      .shadow {
+        top: 180px;
+        width: 320px;
+        height: 24px;
+      }
+      .click-message {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .letter-content {
+        max-height: 80vh;
+        font-size: 1rem;
+        padding: 20px 25px;
+      }
+      .letter-image {
+        width: 140px;
+        height: 140px;
+      }
+      .animated-mail {
+        height: 115px;
+        width: 140px;
+      }
+      .animated-mail .body {
+        border-width: 0 0 70px 140px;
+      }
+      .animated-mail .top-fold {
+        border-width: 35px 70px 0 70px;
+        top: 35px;
+      }
+      .animated-mail .back-fold {
+        width: 140px;
+        height: 70px;
+      }
+      .animated-mail .left-fold {
+        border-width: 35px 0 35px 70px;
+      }
+      .animated-mail .letter {
+        width: 100px;
+        height: 45px;
+        left: 15px;
+      }
+      .animated-mail .letter-border {
+        height: 8px;
+      }
+      .animated-mail .letter-title,
+      .animated-mail .letter-context {
+        height: 8px;
+        margin-top: 8px;
+        margin-left: 5px;
+      }
+      .animated-mail .letter-stamp {
+        margin-top: 20px;
+        margin-left: 78px;
+        height: 22px;
+        width: 22px;
+      }
+      .shadow {
+        top: 140px;
+        width: 250px;
+        height: 18px;
+      }
+      .click-message {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="letter-image" onclick="openLetter()" role="button" aria-label="Open romantic letter">
+    <div class="click-message">💌 Tap the letter, Yuyu 💌</div>
+    <div class="animated-mail" aria-hidden="true">
+      <div class="back-fold"></div>
+      <div class="letter">
+        <div class="letter-border"></div>
+        <div class="letter-title"></div>
+        <div class="letter-context"></div>
+        <div class="letter-stamp"></div>
+      </div>
+      <div class="top-fold"></div>
+      <div class="body"></div>
+      <div class="left-fold"></div>
+    </div>
+    <div class="shadow"></div>
+  </div>
+
+  <!-- Romantic Modal -->
+  <div class="letter-modal" id="letterModal" role="dialog" aria-modal="true" aria-labelledby="letterTitle" tabindex="-1">
+  <div class="letter-content">
+    <button class="close-btn" aria-label="Close letter modal" onclick="closeLetter()">&times;</button>
+    <h2 id="letterTitle">To the Love of My Life,</h2>
+    <h4>Happy Girlfriend's Day 💝</h4>
+    <p>
+      Every moment with you feels like a beautiful melody—soft, comforting, and unforgettable. This little surprise is my way of reminding you just how deeply you mean to me. 💖
+    </p>
+    <p>
+      Though we’ve officially been together for just three months, it feels like we’ve known each other forever—our paths crossing long before we realized. I cherish that serendipity every day.
+    </p>
+    <p>
+      Being with you has helped me grow and learn more about myself than I ever imagined possible. Your love and support inspire me to be a better person.
+    </p>
+    <p>
+      You bring light to my darkest days, calm to my chaos, and love that feels like home. I’m endlessly grateful every single day that you are mine.
+    </p>
+    <p>
+      No matter how simple this letter may seem, it holds all my heart, wrapped tenderly in pixels and love. 🥰
+    </p>
+    <p>
+      You are the most precious gift God has ever given me. Today may not be a special day, but it’s a heartfelt reminder that you are caring, loving, sensitive, smart, and compassionate beyond words.
+    </p>
+    <p>
+      Your values and the way you nurture our relationship are a constant testament to what a wonderful girlfriend you are.
+    </p>
+    <p>
+      I look forward to all the moments we’ll share, the dreams we’ll build, and the love that will only grow stronger with time.
+    </p>
+    <div class="text-center">
+      <img src="assets/img/bbbb.jpg" alt="Love picture" loading="lazy" />
+    </div>
+    <p>
+      Forever yours,<br />
+      <em>Your Geylang Norbu 💌</em>
+    </p>
+  </div>
+</div>
+
+
+  <!-- Background Music -->
+  <audio id="bgMusic" src="assets/surething.mp3" loop preload="auto"></audio>
+
+  <script>
+    const audio = document.getElementById("bgMusic");
+
+    function openLetter() {
+      document.getElementById("letterModal").classList.add("active");
+      document.body.style.overflow = "hidden";
+      audio.play().catch(() => {
+        // Autoplay might be blocked, will start on user interaction
+        console.log("Audio play prevented, waiting for user interaction.");
+      });
+    }
+
+    function closeLetter() {
+      document.getElementById("letterModal").classList.remove("active");
+      document.body.style.overflow = "auto";
+      audio.pause();
+      audio.currentTime = 0;
+    }
+
+    window.addEventListener("click", (e) => {
+      const modal = document.getElementById("letterModal");
+      if (e.target === modal) closeLetter();
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeLetter();
+    });
+  </script>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
